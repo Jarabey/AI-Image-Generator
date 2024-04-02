@@ -1,11 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #c62368;
+    background-color: #181e44;
     display: flex;
     flex-direction: column;
     width: 100vw;
-    height: 100vw;
     justify-content: space-between;
     align-items: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -16,6 +15,8 @@ header {
     height: 150px;
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: center;
 }
 
 svg {
@@ -23,4 +24,26 @@ svg {
     top: 0;
     left: 0;
     z-index: -10;
+}
+
+.bottom-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+}
+
+input{
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgb(38, 57, 77) 0 20px 30px -10px;
+}
+
+.input-container {
+    width: 100%;
+    max-width: 650px;
+
 }
