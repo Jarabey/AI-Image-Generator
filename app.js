@@ -1,28 +1,45 @@
-const API_KEY = "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"
-const submitIcon = document.querySelector("#submit-icon")
-const inputElement = document.querySelector("input")
+const API_KEY = "";
 
-const getImages = async() => {
-    const options = {
-        method: "POST",
-        headers: {
-            "Authorizatio": `Bearer ${API_KEY}`,
-            'Content-Type': "application/json"
-        },
-        body: JSON.stringify({
-            "prompt": inputElement.value,
-            "n": 4,
-            "size":"1024x1024"
-        })
-    }
-    try{
-        const response = await fetch('http://api.openai.com/v1/images/generations', options)
-        const data = await response.json()
-        console.log(data)
-    } catch (error) {
-        console.error(error)
-    }
-}
+    const generateImage = async () => {
+        const inputElement = document.querySelector("#inputField");
+        const prompt = inputElement.value.trim();
+        const size = "1024x1024";
+        const quality = "standard";
+        const n = 1;
 
+        // Constructing the prompt with the additional instruction
+        const augmentedPrompt = `${prompt}. I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS:`;
 
-submitIcon.addEventListener('click', getImages)
+        const options = {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${API_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ model: "dall-e-3", prompt: augmentedPrompt, size, quality, n })
+        };
+
+        try {
+            const response = await fetch("https://api.openai.com/v1/images/generations", options);
+            const data = await response.json();
+            const imageUrl = data.data[0].url;
+            displayImage(imageUrl);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const displayImage = (url) => {
+        const imagesSection = document.querySelector(".images-section");
+        imagesSection.innerHTML = `<img src="${url}" alt="Generated Image"/>`;
+    };
+
+    const submitIcon = document.querySelector("#submit-icon");
+    submitIcon.addEventListener('click', generateImage);
+
+    const inputField = document.querySelector("#inputField");
+    inputField.addEventListener('keypress', (event) => {
+        if (event.key === "Enter") {
+            generateImage();
+        }
+    });
