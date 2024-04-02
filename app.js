@@ -1,4 +1,4 @@
-const API_KEY = "";
+
 
     const generateImage = async () => {
         const inputElement = document.querySelector("#inputField");
